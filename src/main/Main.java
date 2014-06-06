@@ -1,5 +1,7 @@
 package main;
 
+import javax.swing.JFrame;
+
 import view.MainFrame;
 
 public class Main
@@ -9,7 +11,9 @@ public class Main
 	{
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new MainFrame();
+                //new MainFrame();
+            	JFrame frame = layouts.ParseXML.ParseXMLToFrame("template/maininterface.xml");
+            	frame.setVisible(true);
             }
 		});
 

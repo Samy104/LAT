@@ -9,7 +9,13 @@ import layouts.CustomLayout;
 
 @SuppressWarnings("serial")
 public class MainInterface extends JFrame{
-
+	// Panels
+	JPanel panMenu;
+	JPanel panSpotlight;
+	JPanel panLeftSideBar;
+	JPanel panRightSideBar;
+	JPanel panFooter;
+	
 	JMenuBar menuBar;
 	JMenu menuFile, menuEdit, menuAbout, menuHelp;
 	JMenuItem menuTest;

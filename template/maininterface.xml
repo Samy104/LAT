@@ -1,0 +1,30 @@
+<Frame width="1920" height="1080">
+	<menuBar width="1920" height="35">
+		<menuItem name="File">
+			<menuItem name="Settings">
+			</menuItem>
+		</menuItem>
+		<menuItem name="Edit">
+		</menuItem>
+		<menuItem name="About">
+		</menuItem>
+		<menuItem name="Help">
+		</menuItem>
+	</menuBar>
+	<main width="1920" height="1010" x="0" y="35">
+		<leftSideBar type="content" width="640" height="1010" x="0" y="0">
+		</leftSideBar>
+		<spotlight type="content" width="960" height="80" x="640" y="0">
+		</spotlight>
+		<content type="content" width="960" height="1010" x="640" y="80">
+		</content>
+		<rightSideBar type="content" width="640" height="1010" x="1600" y="80">
+			<label type="label" name="lblRightSideTitle" width="100" height="20" x="10" y="60" text="Welcome">
+			</label>
+		</rightSideBar>
+	</main>
+	<footer width="1920" height="35" x="0" y="1045">
+		<button type="button" width="200" height="35" x="100" y="250">
+		</button>
+	</footer>
+</Frame>
