@@ -1,17 +1,17 @@
-<Frame width="1920" height="1080">
-	<menuBar width="1920" height="35">
-		<menuItem name="File">
-			<menuItem name="Settings">
+<Frame width="1920" height="1080" title="LAT Interface">
+	<menuBar type="menubar" width="1920" height="35" x="0" y="0">
+		<menuItem type="menuitem" text="File" width="100" height="25" x="10">
+			<menuItem type="menuitem" text="Settings" width="100" height="25">
 			</menuItem>
 		</menuItem>
-		<menuItem name="Edit">
+		<menuItem type="menuitem" text="Edit" width="100" height="25" x="110">
 		</menuItem>
-		<menuItem name="About">
+		<menuItem type="menuitem" text="About" width="100" height="25" x="210">
 		</menuItem>
-		<menuItem name="Help">
+		<menuItem type="menuitem" text="Help" width="100" height="25" x="310">
 		</menuItem>
 	</menuBar>
-	<main width="1920" height="1010" x="0" y="35">
+	<main type="content" width="1920" height="1010" x="0" y="35">
 		<leftSideBar type="content" width="640" height="1010" x="0" y="0">
 		</leftSideBar>
 		<spotlight type="content" width="960" height="80" x="640" y="0">
@@ -19,12 +19,12 @@
 		<content type="content" width="960" height="1010" x="640" y="80">
 		</content>
 		<rightSideBar type="content" width="640" height="1010" x="1600" y="80">
-			<label type="label" name="lblRightSideTitle" width="100" height="20" x="10" y="60" text="Welcome">
+			<label type="label" id="lblRightSideTitle" width="100" height="20" x="10" y="60" text="Welcome">
 			</label>
 		</rightSideBar>
 	</main>
-	<footer width="1920" height="35" x="0" y="1045">
-		<button type="button" width="200" height="35" x="100" y="250">
+	<footer type="content" width="1920" height="35" x="0" y="1045">
+		<button type="button" width="200" height="35" x="100" y="250" text="Test dat button">
 		</button>
 	</footer>
 </Frame>

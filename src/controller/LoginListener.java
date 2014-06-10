@@ -23,7 +23,7 @@ public class LoginListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(nomUtilisateur.getText().length() != 0 && this.motDePasse != null){
 			User.Login(this.nomUtilisateur.getText(), retrievePassword(this.motDePasse.getPassword()));
-			new MainInterface();
+			layouts.ParseXML.ParseXMLToFrame("template/maininterface.xml");
 		}
 	}
 	

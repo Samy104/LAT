@@ -1,6 +1,7 @@
 package layouts;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -15,6 +16,7 @@ import controller.*;
 
 import javax.swing.*;
 
+import org.omg.CORBA.Current;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -22,9 +24,6 @@ import org.xmlpull.v1.XmlPullParserFactory;
 /* Class created by Samy Lemcelli
  * This class is called statically to parse an XML document and retrieves an object in return.
  * The user must know what the desired object is for the method called
- * 
- * 
- * 
  * 
  */
 
@@ -37,15 +36,17 @@ public class ParseXML {
 	/* This method will parse the XML and detect what is contained within the tags and created the corresponding objects within.
 	 * It will automate the creation of panels from a XML files so that View files manage interactions
 	 * 
-	 * XML attributes:"Type,Height,Width,X,Y,Action,actionparam"
-	 * Types:"content,label,txtfield,button,list"
+	 * XML attributes:"Type,Height,Width,X,Y,Action,actionParam"
+	 * Types:"content,label,txtfield,passfield,button,list"
 	 * 
 	 * 
 	 */
 	public static JFrame ParseXMLToFrame(String xml)
 	{
 		JFrame custom = new JFrame();
-
+		JPanel currentPan = null;
+		JMenuBar currMenuBar = null;
+		ArrayList<Object> hierarchy = new ArrayList<Object>();
 		ArrayList<Mapping> ObjectText = new ArrayList<Mapping>();
 		
 		try {
@@ -67,7 +68,7 @@ public class ParseXML {
 	         
 		 while (eventType != XmlPullParser.END_DOCUMENT) 
 		 {
-			JPanel currentPan = new JPanel();
+			
 			tag = parser.getName();
 			int width = 0;
 			int height = 0;
@@ -134,20 +135,35 @@ public class ParseXML {
 					}
 					// On peut alors ajouter les attributs et elements
 					//System.out.println(type);
+					//System.out.println(parser.getName()+(id+1));
 					if (tag.equals("Frame"))
 					{
 						custom.setBounds(new Rectangle(width,height));
 						custom.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 						custom.setTitle(title);
+						hierarchy.add(custom);
 		       		}
+					else if(type == null)
+					{
+						System.out.println("The type you try to push is not valid for : " + tag);
+					}
 					else if(type.equals("content"))
 					{
-						//System.out.println("Pannel added: ");
+						//System.out.println("Panel added: ");
 						currentPan = new JPanel();
+						currentPan.setLayout(null);
 						currentPan.setName(name);
 						currentPan.setBounds(x, y, width, height);
 						currentPan.setSize(width, height);
-						custom.add(currentPan);
+						if(hierarchy.get(id).getClass().equals(JFrame.class))
+						{
+							custom.add(currentPan);
+						}
+						else
+						{
+							((JPanel) hierarchy.get(id)).add(currentPan);
+						}
+						hierarchy.add(currentPan);
 					}
 					else if(type.equals("label"))
 					{
@@ -155,6 +171,7 @@ public class ParseXML {
 						JLabel currLabel = new JLabel(text);
 						currLabel.setBounds(x, y, width, height);
 						currentPan.add(currLabel);
+						hierarchy.add(currLabel);
 					}
 					else if(type.equals("button"))
 					{
@@ -162,9 +179,9 @@ public class ParseXML {
 						JButton currButton = new JButton(text);
 						currButton.setBounds(x, y, width, height);
 						
-						Object[] paramList = new Object[actionParam.length];
-						if(actionParam.length != 0 && action != null)
+						if(action != null && actionParam != null && actionParam.length != 0)
 						{
+							Object[] paramList = new Object[actionParam.length];
 							for(int i = 0; i < actionParam.length; i++)
 							{
 								Object paramVal = ParseXML.getValueFromArray(ObjectText,actionParam[i]);
@@ -205,7 +222,8 @@ public class ParseXML {
 						{
 							currButton.addActionListener((ActionListener) Class.forName(action).newInstance());
 						}
-						currentPan.add(currButton);						
+						currentPan.add(currButton);		
+						hierarchy.add(currButton);
 					}
 					else if(type.equals("textfield"))
 					{
@@ -213,6 +231,7 @@ public class ParseXML {
 						JTextField currText = new JTextField();
 						currText.setBounds(x, y, width, height);
 						currentPan.add(currText);
+						hierarchy.add(currText);
 						ObjectText.add(new Mapping(ident,currText));
 					}
 					else if(type.equals("passfield"))
@@ -221,13 +240,47 @@ public class ParseXML {
 						JPasswordField currPass = new JPasswordField();
 						currPass.setBounds(x, y, width, height);
 						currentPan.add(currPass);
+						hierarchy.add(currPass);
 						ObjectText.add(new Mapping(ident,currPass));
 					}
-					
-					
+					else if(type.equals("menubar"))
+					{
+						//System.out.println("Menu Bar added: " + ident);
+						JPanel barPanel = new JPanel();
+						barPanel.setLayout(null);
+						currMenuBar = new JMenuBar();
+						barPanel.setBounds(x, y, width, height);
+						barPanel.add(currMenuBar);
+						hierarchy.add(currMenuBar);
+						if(ident != null)
+						{
+							ObjectText.add(new Mapping(ident,currMenuBar));
+						}
+						
+					}
+					else if(type.equals("menuitem"))
+					{
+						//System.out.println("Menu Item added: " + ident);
+						JMenuItem currMenuItem = new JMenuItem();
+						currMenuItem.setBounds(x, y, width, height);
+						currMenuItem.setText(text);
+						if(hierarchy.get(id).getClass().equals(JMenuBar.class))
+						{
+							((JMenuBar) hierarchy.get(id)).add(currMenuItem);
+						}
+						else
+						{
+							((JMenuItem) hierarchy.get(id)).add(currMenuItem);
+						}
+						hierarchy.add(currMenuItem);
+						if(ident != null)
+						{
+							ObjectText.add(new Mapping(ident,currMenuItem));
+						}
+					}
 				}
 		       	
-				   	
+				id++;   	
 			 }
 			 else if (eventType == XmlPullParser.TEXT && id >= 0) 
 			 {
@@ -235,6 +288,9 @@ public class ParseXML {
 			 }
 			 else if (eventType == XmlPullParser.END_TAG) 
 			 { 
+				 hierarchy.remove(id);
+				 id--;
+				 /*
 				 //System.out.println(type);
 				 if(type != null && type.equals("content"))
 				 {
@@ -242,7 +298,8 @@ public class ParseXML {
 					 currentPan.repaint();
 					 currentPan.setVisible(true);
 					 custom.add(currentPan);
-				 }				 
+				 }
+				 */				 
 			 }
 			 
 			 eventType = parser.next();            
@@ -285,6 +342,7 @@ public class ParseXML {
 		custom.revalidate();
 		custom.repaint();
 		custom.setVisible(true);
+		
 		return custom;
 	}
 	

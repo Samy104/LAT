@@ -1,14 +1,14 @@
 <Frame width="600" height="600" title="LAT Login">
 	<main type="content" width="600" height="600">
-		<label type="label"  width="250" height="20" x="0" y="250">
+		<label type="label"  width="250" height="20" x="50" y="250" text="Login name: ">
 		</label>
-		<textfield id="txtLogin" type="textfield" width="250" height="20" x="0" y="250">
+		<textfield id="txtLogin" type="textfield" width="250" height="20" x="300" y="250">
 		</textfield>
-		<label type="label" width="250" height="20" x="0" y="250">
+		<label type="label" width="250" height="20" x="50" y="300" text="Login pass: ">
 		</label>
-		<passfield id="txtPass" type="passfield" width="250" height="20" x="0" y="250">
+		<passfield id="txtPass" type="passfield" width="250" height="20" x="300" y="300">
 		</passfield>
-		<button type="button" width="250" height="20" x="0" y="250" action="LoginListener" actionParam="txtLogin, txtPass">
+		<button type="button" width="250" height="20" x="180" y="350" action="LoginListener" actionParam="txtLogin, txtPass" text="Login">
 		</button>
 	</main>
 </Frame>
