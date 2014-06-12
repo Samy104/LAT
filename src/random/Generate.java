@@ -35,7 +35,11 @@ public class Generate {
 	
 	protected boolean checkDuplicateNumber(int number) 
 	{
-		for(int i = 0; i < this.numberRequested; i++)
+		if(this.generatedList.length == 0)
+		{
+			return true;
+		}
+		for(int i = 0; i < this.generatedList.length  && this.generatedList[i] != null; i++)
 		{
 			if(number == this.generatedList[i].getValue())
 			{
@@ -45,8 +49,18 @@ public class Generate {
 		return false;
 	}
 	
-	private void sortList()
+	protected void sortList()
 	{
-		Arrays.sort(this.generatedList);
+		// Not the most efficient way but good for now. Create a new array with the elements and recreate a new Number list.
+		int[] tempList = new int[generatedList.length];
+		for(int dem = 0; dem < generatedList.length; dem++)
+		{
+			tempList[dem] = generatedList[dem].getValue();
+		}
+		Arrays.sort(tempList);
+		for(int mon = 0; mon < generatedList.length; mon++)
+		{
+			generatedList[mon] = new Number(tempList[mon]);
+		}
 	}
 }

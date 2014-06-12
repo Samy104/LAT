@@ -1,5 +1,6 @@
 package random;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -15,16 +16,22 @@ public class NumRange extends Generate{
 	public void javaRandomList() 
 	{
 		Random rand = new Random();
-		int currentNumber = 0;
-		while(currentNumber < this.numberRequested) 
+		
+		// Prepare sequencial arraylist to have a linear generation since we won't allow duplicates
+		ArrayList<Integer> collection = new ArrayList<Integer>();
+		for(int index = 1; index <= this.numberRange; index++)
 		{
-			int generatedInt = rand.nextInt(numberRange);
-			if(!checkDuplicateNumber(generatedInt))
-			{
-				generatedList[currentNumber] = new Number(generatedInt);
-				currentNumber++;
-			}
+			collection.add(index);
 		}
+		
+		
+		for(int currentNumber = 0;currentNumber < this.numberRequested; currentNumber++) 
+		{
+			int generatedInt = rand.nextInt(collection.size());
+			this.generatedList[currentNumber] = new Number(collection.get(generatedInt));
+			collection.remove(generatedInt);
+		}
+		this.sortList();
 	}
 	
 	

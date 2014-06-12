@@ -1,4 +1,4 @@
-<Frame width="600" height="600" title="LAT Login">
+<Frame width="600" height="600" title="LAT Login" backgroundUrl="background/grey_faded.png">
 	<main type="content" width="600" height="600">
 		<label type="label"  width="250" height="20" x="50" y="250" text="Login name: ">
 		</label>
@@ -8,7 +8,7 @@
 		</label>
 		<passfield id="txtPass" type="passfield" width="250" height="20" x="300" y="300">
 		</passfield>
-		<button type="button" width="250" height="20" x="180" y="350" action="LoginListener" actionParam="txtLogin, txtPass" text="Login">
+		<button type="button" width="150" height="60" x="230" y="350" action="LoginListener" actionParam="txtLogin, txtPass, frame" text="Login">
 		</button>
 	</main>
 </Frame>

@@ -39,6 +39,6 @@ public class MainFrame extends JFrame {
 			this.setVisible(true);
 	}
 	private void setup(){
-		btnLogin.addActionListener(new LoginListener(this.txtUtilisateur,this.txtMotDePasse));
+		//btnLogin.addActionListener(new LoginListener(this.txtUtilisateur,this.txtMotDePasse));
 	}
 }

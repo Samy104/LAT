@@ -17,6 +17,20 @@
 		<spotlight type="content" width="960" height="80" x="640" y="0">
 		</spotlight>
 		<content type="content" width="960" height="1010" x="640" y="80">
+			<selectGenerationType id="genType" type="combobox" width="400" height="50" x="0" y="0" values="Random, Range">
+			</selectGenerationType>
+			<amountLabel type="label" width="200" height="25" x="0" y="60" text="Amount of numbers">
+			</amountLabel>
+			<amountNumber id="amountNum" type="textfield" width="25" height="25" x="200" y="60">
+			</amountNumber>
+			<maxLabel type="label" width="200" height="25" x="0" y="90" text="Max range">
+			</maxLabel>
+			<maxNumber id="maxNum" type="textfield" width="25" height="25" x="200" y="90">
+			</maxNumber>
+			<displayResult id="displayResult" type="label" width="960" height="200" x="0" y="250" text="Results will go here">
+			</displayResult>
+			<generate type="button" width="250" height="65" x="200" y="150" text="Generate" action="GenerateListener" actionParams="genType, displayResult, amountNum, maxNum">
+			</generate>
 		</content>
 		<rightSideBar type="content" width="640" height="1010" x="1600" y="80">
 			<label type="label" id="lblRightSideTitle" width="100" height="20" x="10" y="60" text="Welcome">

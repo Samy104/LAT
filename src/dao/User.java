@@ -8,9 +8,9 @@ public class User {
 	}
 	
 	
-	public static void Login(String user, String pass)
+	public static boolean Login(String user, String pass)
 	{
-		
+		return true;
 	}
 	
 }
